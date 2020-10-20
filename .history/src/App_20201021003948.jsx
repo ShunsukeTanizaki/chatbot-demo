@@ -13,46 +13,38 @@ export default class App extends React.Component {
             dataset: defaultDataset,
             open: false
         }
-        this.selectAnswer = this.selectAnswer.bind(this)
-    }
-
-    displayNextQuestion = (nextQuestionId) => {
-        const chats = this.state.chats
-        chats.push({
-            text: this.state.dataset[nextQuestionId].question,
-            type: 'question'
-        })
-        this.setState({
-            answers: this.state.dataset[nextQuestionId].answers,
-            chats: chats,
-            currentId: nextQuestionId
-        })
     }
 
     selectAnswer = (selectedAnswer, nextQuestionId) => {
         switch (true) {
-            case (nextQuestionId === 'init'):
-                this.displayNextQuestion(nextQuestionId);
+            case (nextQuestionID === 'init'):
                 break;
             default:
-                const chats = this.state.chats;
-                chats.push({
+                const chat = {
                     text: selectedAnswer,
                     type: 'answer'
-                })
+                }
+                const chats = this.state.chats;
+                chats.push(chat)
         
                 this.setState({
                     chats: chats
                 })
-
-                this.displayNextQuestion(nextQuestionId)
                 break;
         }
     }
+    
+    initAnswer = () => {
+        const initDataset = this.state.dataset[this.state.currentId];
+        const initAnswers = initDataset.answers;
+        this.setState({
+            answers: initAnswers
+        })
+    }
 
     componentDidMount() {
-        const initAnswer = "";
-        this.selectAnswer(initAnswer, this.state.currentId)
+        this.initChats();
+        this.initAnswer()
     }
 
     render() {
@@ -60,7 +52,7 @@ export default class App extends React.Component {
             <section className="c-section">
                 <div className="c-box">
                     <Chats chats={this.state.chats}/>
-                    <AnswersList answers={this.state.answers} select={this.selectAnswer}/>
+                    <AnswersList answers={this.state.answers}/>
                 </div>
             </section>
         );

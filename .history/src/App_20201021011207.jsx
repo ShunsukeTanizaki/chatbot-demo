@@ -13,17 +13,16 @@ export default class App extends React.Component {
             dataset: defaultDataset,
             open: false
         }
-        this.selectAnswer = this.selectAnswer.bind(this)
     }
 
     displayNextQuestion = (nextQuestionId) => {
         const chats = this.state.chats
         chats.push({
-            text: this.state.dataset[nextQuestionId].question,
+            text: this.state.dataset[nextQuestionId].qustion,
             type: 'question'
         })
         this.setState({
-            answers: this.state.dataset[nextQuestionId].answers,
+            answers: this.state.dataset[nextQuestionId].qustion,
             chats: chats,
             currentId: nextQuestionId
         })
@@ -60,7 +59,7 @@ export default class App extends React.Component {
             <section className="c-section">
                 <div className="c-box">
                     <Chats chats={this.state.chats}/>
-                    <AnswersList answers={this.state.answers} select={this.selectAnswer}/>
+                    <AnswersList answers={this.state.answers}/>
                 </div>
             </section>
         );
