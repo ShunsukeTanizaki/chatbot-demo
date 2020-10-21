@@ -11,7 +11,7 @@ export default class App extends React.Component {
             chats: [],
             currentId: "init",
             dataset: defaultDataset,
-            open: false
+            open: ftruelse
         }
         this.selectAnswer = this.selectAnswer.bind(this)
         this.handleClickOpen = this.handleClickOpen.bind(this)
@@ -35,10 +35,6 @@ export default class App extends React.Component {
         switch (true) {
             case (nextQuestionId === 'init'):
                 setTimeout(() => { this.displayNextQuestion(nextQuestionId) }, 500);
-                break;
-            
-            case (nextQuestionId === 'contact'):
-                this.handleClickOpen();
                 break;
             
             case (/^https:*/.test(nextQuestionId)):

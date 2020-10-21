@@ -2,7 +2,7 @@ import React from 'react';
 import defaultDataset from './dataset'
 import './assets/styles/style.css';
 import { AnswersList, Chats } from './components/index';
-import FormDialog from './components/Forms/ FormDialog'
+
 export default class App extends React.Component {
     constructor(props) {
         super(props);
@@ -35,10 +35,6 @@ export default class App extends React.Component {
         switch (true) {
             case (nextQuestionId === 'init'):
                 setTimeout(() => { this.displayNextQuestion(nextQuestionId) }, 500);
-                break;
-            
-            case (nextQuestionId === 'contact'):
-                this.handleClickOpen();
                 break;
             
             case (/^https:*/.test(nextQuestionId)):
