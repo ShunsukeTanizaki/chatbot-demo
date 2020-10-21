@@ -6,10 +6,10 @@ const useStyles = makeStyles(() => (
     createStyles({
         "button": {
             borderCoror: '#FFB549',
-            color: '#FFB549',
+            color: 'FFB549',
             fontWeight: 600,
             marginBottom: '8px',
-            "&:hover": {
+            "&:hober": {
                 backgroundColor: '#FFB549',
                 color: '#fff'
             }
@@ -22,7 +22,7 @@ const Answer = (props) => {
     return (
         <Button
             className={classes.button}
-            variant="outlined" onClick={() => props.select(props.content, props.nextId)} >
+            variant="contained" onClick={() => props.select(props.content, props.nextId)} >
             {props.content}
         </Button>
     )
