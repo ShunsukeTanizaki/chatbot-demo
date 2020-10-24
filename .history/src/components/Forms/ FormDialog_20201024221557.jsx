@@ -31,33 +31,10 @@ export default class FormDaialog extends React.Component{
         this.setState({description: event.target.value}) 
     }
 
-    // Slackに問い合わせがあったことを通知する
     submitForm = () => {
         const name = this.state.name
         const email = this.state.email
         const description = this.state.description
-
-        const payload = {
-            text: 'お問い合わせがありました\n' +
-                'お名前：' + name + '\n' +
-                'Email:' + email + '\n' +
-                'お問い合わせ内容：\n' + description
-        }
-
-        const url = 'https://hooks.slack.com/services/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'
-
-        fetch(url, {
-            method: 'POST',
-            body: JSON.stringify(payload)
-        }).then(() => {
-            alert('送信が完了しました。追ってご連絡します！')
-            this.setState({
-                name: "",
-                email: "",
-                description: ""
-            })
-            return this.props.handleClose()
-        })
     }
 
     render() {

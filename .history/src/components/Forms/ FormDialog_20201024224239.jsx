@@ -31,7 +31,6 @@ export default class FormDaialog extends React.Component{
         this.setState({description: event.target.value}) 
     }
 
-    // Slackに問い合わせがあったことを通知する
     submitForm = () => {
         const name = this.state.name
         const email = this.state.email
