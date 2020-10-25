@@ -75,7 +75,7 @@ export default class App extends React.Component {
         this.setState({ open: false })
     }
 
-    initDataset = (dataset) => {
+    initDataset = () => {
         this.setState({dataset: dataset})
     }
 

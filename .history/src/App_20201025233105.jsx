@@ -75,7 +75,7 @@ export default class App extends React.Component {
         this.setState({ open: false })
     }
 
-    initDataset = (dataset) => {
+    initDatsaset = () => {
         this.setState({dataset: dataset})
     }
 
@@ -89,10 +89,10 @@ export default class App extends React.Component {
                     dataset[id] = data
                 })
             })
-            this.initDataset(dataset)
-            const initAnswer = "";
-            this.selectAnswer(initAnswer, this.state.currentId)
+            
         })()
+        const initAnswer = "";
+        this.selectAnswer(initAnswer, this.state.currentId)
     }
 
     componentDidUpdate() {
