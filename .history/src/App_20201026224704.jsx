@@ -39,7 +39,7 @@ const App = () => {
                     text: selectedAnswer,
                     type: 'answer'
                 })
-                setTimeout(() => displayNextQuestion(nextQuestionId, dataset[nextQuestionId]), 1000);
+                setTimeout(()=>  displayNextQuestion(nextQuestionId, dataset[nextQuestionId]), 1000) 
                 break;
         }
     }
@@ -48,15 +48,15 @@ const App = () => {
         setChats(prevChats => {
             return [...prevChats, chat]
         })
-    };
+    }
 
     const handleClickOpen = () => {
         setOpen(true)
-    };
+    }
 
     const handleClose = useCallback(() => {
         setOpen(false)
-    },[setOpen]);
+    },[false]);
 
     useEffect( () => {
         (async () => {

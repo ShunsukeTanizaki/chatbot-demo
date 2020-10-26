@@ -25,6 +25,9 @@ const FormDaialog = (props) => {
 
     // Slackに問い合わせがあったことを通知する
     const submitForm = () => {
+        const name = setName()
+        const email = setEmail()
+        const description = setDescription()
 
         const payload = {
             text: 'お問い合わせがありました\n' +
@@ -39,11 +42,13 @@ const FormDaialog = (props) => {
             method: 'POST',
             body: JSON.stringify(payload)
         }).then(() => {
-            alert('送信が完了しました。追ってご連絡します！');
-            setName("")
-            setEmail("")
-            setDescription("")
-            return props.handleClose()
+            alert('送信が完了しました。追ってご連絡します！')
+            this.setState({
+                name: "",
+                email: "",
+                description: ""
+            })
+            return this.props.handleClose()
         })
     }
 

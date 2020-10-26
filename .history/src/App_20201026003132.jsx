@@ -4,21 +4,26 @@ import './assets/styles/style.css';
 import { AnswersList, Chats } from './components/index';
 import FormDialog from './components/Forms/ FormDialog'
 import { db } from './firebase/index'
+import { useCallback } from 'react';
 
 const App = () => {
     const [answers, setAnswers] = useState([]);
-    const [chats, setChats] = useState([]);
+    const [chats, setchats] = useState([]);
     const [currentId, setCurrentId] = useState("init");
     const [dataset, setDataset] = useState({});
     const [open, setOpen] = useState(false);
+
+        this.selectAnswer = this.selectAnswer.bind(this)
+        this.handleClickOpen = this.handleClickOpen.bind(this)
+        this.handleClose = this.handleClose.bind(this)
 
     const displayNextQuestion = (nextQuestionId, nextDataset) => {
         addChats({
             text: nextDataset.question,
             type: 'question'
         })
-        setAnswers(nextDataset.answers)
-        setCurrentId(nextQuestionId)
+            setAnswers(nextDataset.answers),
+            setCurrentId(nextQuestionId)
     }
 
     const selectAnswer = (selectedAnswer, nextQuestionId) => {
@@ -39,7 +44,7 @@ const App = () => {
                     text: selectedAnswer,
                     type: 'answer'
                 })
-                setTimeout(() => displayNextQuestion(nextQuestionId, dataset[nextQuestionId]), 1000);
+                setTimeout(()=>  displayNextQuestion(nextQuestionId, dataset[nextQuestionId]), 1000) 
                 break;
         }
     }
@@ -48,15 +53,15 @@ const App = () => {
         setChats(prevChats => {
             return [...prevChats, chat]
         })
-    };
+    }
 
     const handleClickOpen = () => {
-        setOpen(true)
-    };
+        setState(true)
+    }
 
     const handleClose = useCallback(() => {
         setOpen(false)
-    },[setOpen]);
+    },[false]);
 
     useEffect( () => {
         (async () => {
@@ -71,6 +76,7 @@ const App = () => {
             })
             setDataset(initDataset)
             displayNextQuestion(currentId, initDataset[currentId])
+            this.selectAnswer(initAnswer, this.state.currentId)
         })()
     }, [])
 

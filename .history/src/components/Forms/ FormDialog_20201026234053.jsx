@@ -25,6 +25,9 @@ const FormDaialog = (props) => {
 
     // Slackに問い合わせがあったことを通知する
     const submitForm = () => {
+        const name = setName()
+        const email = setEmail()
+        const description = setDescription()
 
         const payload = {
             text: 'お問い合わせがありました\n' +

@@ -8,23 +8,32 @@ import TextInput from './ TextInput'
 
 
 
-const FormDaialog = (props) => {
-    const [name, setName] = useState("")
-    const [email, setEmail] = useState("")
-    const [description, setDescription] = useState("")
+const FormDaialog = () => {
+        super(props);
+        this.state = {
+            name: "",
+            email: "",
+            description: ""
+        }
+        this.inputName = this.inputName.bind(this)
+        this.inputEmail = this.inputEmail.bind(this)
+        this.inputDescription = this.inputDescription.bind(this)
 
-    const inputName = useCallback((event) => {
-        setName(event.target.value)
-    }, [setName]);
-    const inputEmail = useCallback((event) => {
-        setEmail(event.target.value)
-    }, [setEmail]);
-    const inputDescription = useCallback((event) => {
-        setDescription(event.target.value)
-    }, [setDescription]);
+    const inputName = (event) => {
+        this.setState({name: event.target.value}) 
+    }
+    const inputEmail = (event) => {
+        this.setState({email: event.target.value}) 
+    }
+    const inputDescription= (event) => {
+        this.setState({description: event.target.value}) 
+    }
 
     // Slackに問い合わせがあったことを通知する
     const submitForm = () => {
+        const name = this.state.name
+        const email = this.state.email
+        const description = this.state.description
 
         const payload = {
             text: 'お問い合わせがありました\n' +
@@ -33,24 +42,26 @@ const FormDaialog = (props) => {
                 'お問い合わせ内容：\n' + description
         }
 
-        const url = 'https://hooks.slack.com/services/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'
+        const url = 'https://hooks.slack.com/services/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'
 
         fetch(url, {
             method: 'POST',
             body: JSON.stringify(payload)
         }).then(() => {
-            alert('送信が完了しました。追ってご連絡します！');
-            setName("")
-            setEmail("")
-            setDescription("")
-            return props.handleClose()
+            alert('送信が完了しました。追ってご連絡します！')
+            this.setState({
+                name: "",
+                email: "",
+                description: ""
+            })
+            return this.props.handleClose()
         })
     }
 
     return (
         <Dialog
-            open={props.open}
-            onClose={props.handleClose}
+            open={this.props.open}
+            onClose={this.props.handleClose}
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description"
         >
@@ -82,7 +93,7 @@ const FormDaialog = (props) => {
                 />
             </DialogContent>
             <DialogActions>
-                <Button onClick={props.handleClose} color="primary">
+                <Button onClick={handleClose} color="primary">
                     キャンセル
                 </Button>
                 <Button onClick={submitForm} color="primary" autoFocus>

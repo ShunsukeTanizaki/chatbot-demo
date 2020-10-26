@@ -1,28 +1,41 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React { useState, useEffect, useCallback }from 'react';
 // import defaultDataset from './dataset' // local
 import './assets/styles/style.css';
 import { AnswersList, Chats } from './components/index';
 import FormDialog from './components/Forms/ FormDialog'
 import { db } from './firebase/index'
+import { useCallback } from 'react';
 
 const App = () => {
     const [answers, setAnswers] = useState([]);
-    const [chats, setChats] = useState([]);
+    const [chats, setchats] = useState([]);
     const [currentId, setCurrentId] = useState("init");
     const [dataset, setDataset] = useState({});
     const [open, setOpen] = useState(false);
 
-    const displayNextQuestion = (nextQuestionId, nextDataset) => {
-        addChats({
-            text: nextDataset.question,
+        this.selectAnswer = this.selectAnswer.bind(this)
+        this.handleClickOpen = this.handleClickOpen.bind(this)
+        this.handleClose = this.handleClose.bind(this)
+
+    const displayNextQuestion = (nextQuestionId) => {
+        const chats = this.state.chats
+        chats.push({
+            text: this.state.dataset[nextQuestionId].question,
             type: 'question'
         })
-        setAnswers(nextDataset.answers)
-        setCurrentId(nextQuestionId)
+        this.setState({
+            answers: this.state.dataset[nextQuestionId].answers,
+            chats: chats,
+            currentId: nextQuestionId
+        })
     }
 
     const selectAnswer = (selectedAnswer, nextQuestionId) => {
         switch (true) {
+            case (nextQuestionId === 'init'):
+                setTimeout(() => { this.displayNextQuestion(nextQuestionId) }, 500);
+                break;
+            
             case (nextQuestionId === 'contact'):
                 handleClickOpen();
                 break;
@@ -35,51 +48,55 @@ const App = () => {
                 break;
             
             default:
-                addChats({
+                const chats = chats;
+                chats.push({
                     text: selectedAnswer,
                     type: 'answer'
                 })
-                setTimeout(() => displayNextQuestion(nextQuestionId, dataset[nextQuestionId]), 1000);
+        
+                this.setState({
+                    chats: chats
+                })
+
+                setTimeout(()=>  displayNextQuestion(nextQuestionId), 1000) 
                 break;
         }
     }
 
-    const addChats = (chat) => {
-        setChats(prevChats => {
-            return [...prevChats, chat]
-        })
-    };
-
     const handleClickOpen = () => {
-        setOpen(true)
-    };
+        setState(true)
+    }
 
     const handleClose = useCallback(() => {
         setOpen(false)
-    },[setOpen]);
+    },[false]);
 
-    useEffect( () => {
+    const initDataset = (dataset) => {
+        this.setState({dataset: dataset})
+    }
+
+    componentDidMount() {
         (async () => {
-            const initDataset = {};
-
+            const dataset = this.state.dataset
             await db.collection('questions').get().then(snapshots => {
                 snapshots.forEach(doc => {
                     const id = doc.id
                     const data = doc.data()
-                    initDataset[id] = data
+                    dataset[id] = data
                 })
             })
-            setDataset(initDataset)
-            displayNextQuestion(currentId, initDataset[currentId])
+            this.initDataset(dataset)
+            const initAnswer = "";
+            this.selectAnswer(initAnswer, this.state.currentId)
         })()
-    }, [])
+    }
 
-    useEffect(() => {
+    componentDidUpdate() {
         const scrollArea = document.getElementById('scroll-area')
         if (scrollArea) {
             scrollArea.scrollTop = scrollArea.scrollHeight
         }
-    })
+    }
 
     return (
         <section className="c-section">

@@ -25,6 +25,9 @@ const FormDaialog = (props) => {
 
     // Slackに問い合わせがあったことを通知する
     const submitForm = () => {
+        const name = setName()
+        const email = setEmail()
+        const description = setDescription()
 
         const payload = {
             text: 'お問い合わせがありました\n' +
@@ -33,17 +36,19 @@ const FormDaialog = (props) => {
                 'お問い合わせ内容：\n' + description
         }
 
-        const url = 'https://hooks.slack.com/services/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'
+        const url = 'https://hooks.slack.com/services/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'
 
         fetch(url, {
             method: 'POST',
             body: JSON.stringify(payload)
         }).then(() => {
-            alert('送信が完了しました。追ってご連絡します！');
-            setName("")
-            setEmail("")
-            setDescription("")
-            return props.handleClose()
+            alert('送信が完了しました。追ってご連絡します！')
+            this.setState({
+                name: "",
+                email: "",
+                description: ""
+            })
+            return this.props.handleClose()
         })
     }
 
