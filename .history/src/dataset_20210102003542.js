@@ -1,10 +1,16 @@
 const defaultDataset = {
     init: {
         answers: [
-            { content: "あなたについて知りたい", nextId: "community" },
-            { content: "仕事を依頼したい", nextId: "job_offer" },
-            { content: "グローブについて相談したい", nextId: "consultant" },
-            { content: "お友達になりたい", nextId: "dating" }
+            { content: "Webを依頼したい", nextId: "job_offer" },
+            {
+                content: "エンジニアのキャリアについて相談したい",
+                nextId: "consultant"
+            },
+            {
+                content: "学習コミュニティについて知りたい",
+                nextId: "community"
+            },
+            { content: "お付き合いしたい", nextId: "dating" }
         ],
         question: "こんにちは！ご用件はなんでしょうか？"
     },
@@ -54,12 +60,13 @@ const defaultDataset = {
     consultant: {
         answers: [
             {
-                content: "どんなメーカーか知りたい",
-                nextId: "https://parser.jp/"
+                content: "YouTubeで動画を見る",
+                nextId:
+                    "https://www.youtube.com/channel/UC-bOAxx-YOsviSmqh8COR0w"
             },
             {
-                content: "お手入れ方法について知りたい",
-                nextId: "https://parser.jp/care"
+                content: "学習コミュニティについて知りたい",
+                nextId: "community"
             },
             { content: "最初の質問に戻る", nextId: "init" }
         ],
@@ -69,14 +76,17 @@ const defaultDataset = {
     community: {
         answers: [
             {
-                content: "ポートフォリオを見る",
-                nextId: "https://shun21.xsrv.jp/"
+                content: "どんな活動をしているの？",
+                nextId: "community_activity"
             },
-            // {content: "コミュニティに参加したい", nextId: "https://torahack.web.app/community/"},
+            {
+                content: "コミュニティに参加したい",
+                nextId: "https://torahack.web.app/community/"
+            },
             { content: "最初の質問に戻る", nextId: "init" }
         ],
         question:
-            "初めまして、谷﨑です。彫刻師→グラブ職人→エンジニアと渡り合ってきました。"
+            "2020年3月から学習コミュニティを始めました！🎉Webエンジニアへの転職を目指す人向けに、プログラミングを教えたりキャリアの相談に乗っています。"
     },
     community_activity: {
         answers: [
@@ -95,10 +105,10 @@ const defaultDataset = {
     },
     dating: {
         answers: [
-            { content: "DMする", nextId: "https://shun21.xsrv.jp/contact/" },
+            { content: "DMする", nextId: "https://twitter.com/torahack_" },
             { content: "最初の質問に戻る", nextId: "init" }
         ],
-        question: "まずは一緒にランチでもいかがですか？お気軽にDMください😄"
+        question: "まずは一緒にランチでもいかがですか？DMしてください😘"
     }
 };
 
